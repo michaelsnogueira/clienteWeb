@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<!-- Fabrica de sessão -->
+	<session-factory>
+
+		<!-- configurações de conexão do banco de dados -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/relatorio</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">q1w2e3r4</property>
+
+		<!-- Quantas sessões serão aberta ao mesmo tempo (Pool de conexão) -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- Dialeto - Indioma do banco -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		<!-- Gerenciamento do contexto das sessões -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Cache de segundo nível -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Mostrar as sql's geradas -->
+		<property name="show_sql">true</property>
+
+		<!-- Cria as tabelas do banco de dados  -->
+		<property name="hbm2ddl.auto">validate</property>
+		
+		<!-- Mapeamento de entidades -->
+		<mapping class="br.com.topicos.relatorio.domain.Loja" />
+		<mapping class="br.com.topicos.relatorio.domain.Filial" />
+
+	</session-factory>
+
+</hibernate-configuration>

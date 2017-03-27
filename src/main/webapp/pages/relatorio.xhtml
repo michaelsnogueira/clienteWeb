@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Relatório</title>
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+	<p:layout fullPage="true">
+		<h:form id="formListagem">
+			<p:layoutUnit position="north">
+				<p:panel id="tabelaTipo" header="Relatório - Topicos Avançados">
+
+					<p:panelGrid id="painelGrid" columns="2" style="margin-bottom:10px"
+						cellpadding="5">
+						<p:dataTable id="tabela1"
+							emptyMessage="Nenhum Registro Encontrado"
+							value="#{lojaBean.tipos}" var="cursor">
+							<p:column headerText="Tipo">
+								<h:outputText value="#{cursor}" />
+							</p:column>
+
+							<p:column headerText="Selecione">
+								<p:commandButton icon="ui-icon-refresh"
+									actionListener="#{lojaBean.localizar}"
+									update=":mensagem :formListagem:tabelaListagem :formListagem:tabelaListagem1">
+									<f:attribute name="localizaEvento" value="#{cursor}" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</p:panelGrid>
+
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<p:layout>
+					<p:layoutUnit position="west" size="500">
+						<p:dataTable id="tabelaListagem"
+							emptyMessage="Nenhum registro encontrado" var="cursor"
+							value="#{lojaBean.filiaisDesc}">
+							<f:facet name="footer">
+								<p:commandButton value="Gráfico"
+									oncomplete="PF('dialogo').show();" />
+							</f:facet>
+							<f:facet name="header">
+								Resultado dos Valores
+								<p:outputLabel value="#{lojaBean.retorno}">
+								</p:outputLabel>
+							</f:facet>
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column colspan="2" headerText="Melhores Lojas" />
+								</p:row>
+								<p:row>
+									<p:column headerText="Loja" />
+
+									<p:column headerText="Valor" />
+
+								</p:row>
+							</p:columnGroup>
+							<p:column>
+								<h:outputText value="#{cursor.nomeLoja}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{cursor.soma}">
+									<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</p:layoutUnit>
+
+					<p:layoutUnit position="south" size="1">
+						<h:outputText value="Middle south unit content." />
+					</p:layoutUnit>
+
+					<p:layoutUnit position="north" size="10">
+						<h:outputText value="Middle left unit content." />
+					</p:layoutUnit>
+
+					<p:layoutUnit position="east" size="500">
+												<p:dataTable id="tabelaListagem1"
+							emptyMessage="Nenhum registro encontrado" var="cursor1"
+							value="#{lojaBean.filiaisAsc}">
+							<f:facet name="footer">
+								<p:commandButton value="Gráfico"
+									oncomplete="PF('dialogo').show();" />
+							</f:facet>
+							<f:facet name="header">
+								Resultado dos Valores
+								<p:outputLabel value="#{lojaBean.retorno}">
+								</p:outputLabel>
+							</f:facet>
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column colspan="2" headerText="Piores Lojas" />
+								</p:row>
+								<p:row>
+									<p:column headerText="Loja" />
+
+									<p:column headerText="Valor" />
+
+								</p:row>
+							</p:columnGroup>
+							<p:column>
+								<h:outputText value="#{cursor1.nomeLoja}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{cursor1.soma}">
+									<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</p:layoutUnit>
+
+					<p:layoutUnit position="center" size="1">
+						<h:outputText value="Gráfico" />
+					</p:layoutUnit>
+				</p:layout>
+			</p:layoutUnit>
+		</h:form>
+	</p:layout>
+</h:body>
+</html>
